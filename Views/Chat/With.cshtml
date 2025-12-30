@@ -1,0 +1,31 @@
+@model List<TextCommunicator.Controllers.ChatController.ChatMessageVm>
+@{
+    ViewData["Title"] = "Rozmowa";
+    var otherId = (string)ViewBag.OtherId;
+    var otherName = (string)ViewBag.OtherName;
+    var meId = (string)ViewBag.MeId;
+}
+
+<div class="card">
+    <div class="row space-between">
+        <h2>Rozmowa z: @otherName</h2>
+        <a class="btn btn-secondary" asp-action="Index">← Lista</a>
+    </div>
+
+    <div class="chatbox">
+        @foreach (var m in Model)
+        {
+            var mine = m.SenderId == meId;
+            <div class="bubble @(mine ? "mine" : "theirs")">
+                <div class="content">@m.Content</div>
+                <div class="meta">@m.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</div>
+            </div>
+        }
+    </div>
+
+    <form asp-action="Send" method="post" class="row gap">
+        <input type="hidden" name="recipientId" value="@otherId" />
+        <input class="form-control" name="content" placeholder="Napisz wiadomość..." autocomplete="off" />
+        <button class="btn" type="submit">Wyślij</button>
+    </form>
+</div>

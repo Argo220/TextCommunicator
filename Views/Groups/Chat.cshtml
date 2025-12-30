@@ -1,0 +1,43 @@
+@model List<TextCommunicator.Controllers.GroupsController.GroupMessageVm>
+@{
+    ViewData["Title"] = "Czat grupowy";
+    var groupId = (int)ViewBag.GroupId;
+    var groupName = (string)ViewBag.GroupName;
+    var meId = (string)ViewBag.MeId;
+}
+
+<div class="card">
+    <div class="row space-between">
+    <h2>Grupa: @groupName</h2>
+    <div class="row gap">
+        @if (User.IsInRole("Admin"))
+        {
+            <a class="btn btn-secondary" asp-action="Members" asp-route-id="@groupId">Członkowie</a>
+        }
+        <a class="btn btn-secondary" asp-action="Index">← Lista</a>
+    </div>
+</div>
+
+    <div class="chatbox">
+        @foreach (var m in Model)
+        {
+            var mine = m.SenderId == meId;
+            <div class="bubble @(mine ? "mine" : "theirs")">
+                <div class="content">
+                    @if (m.SenderId != meId)
+                    {
+                        <div class="sender">@m.SenderName</div>
+                    }
+                    @m.Content
+                </div>
+                <div class="meta">@m.CreatedAt.ToLocalTime().ToString("yyyy-MM-dd HH:mm")</div>
+            </div>
+        }
+    </div>
+
+    <form asp-action="Send" method="post" class="row gap">
+        <input type="hidden" name="groupId" value="@groupId" />
+        <input class="form-control" name="content" placeholder="Wiadomość do grupy..." autocomplete="off" />
+        <button class="btn" type="submit">Wyślij</button>
+    </form>
+</div>

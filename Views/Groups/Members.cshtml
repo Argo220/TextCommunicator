@@ -1,0 +1,40 @@
+@model List<TextCommunicator.Controllers.GroupsController.MemberRowVm>
+@{
+    ViewData["Title"] = "Członkowie grupy";
+    var groupId = (int)ViewBag.GroupId;
+    var groupName = (string)ViewBag.GroupName;
+}
+
+<div class="card">
+    <div class="row space-between">
+        <h2>Członkowie: @groupName</h2>
+        <div class="row gap">
+            <a class="btn btn-secondary" asp-action="AddMembers" asp-route-id="@groupId">Dodaj użytkowników</a>
+            <a class="btn btn-secondary" asp-action="Chat" asp-route-id="@groupId">← Czat</a>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input id="searchMembers" class="form-control" placeholder="Szukaj..." autocomplete="off" />
+    </div>
+
+    <ul class="list" id="listMembers">
+        @foreach (var m in Model)
+        {
+            <li class="list-item">
+                <span>@m.Email</span>
+                <form asp-action="RemoveMember" method="post" class="inline">
+                    <input type="hidden" name="membershipId" value="@m.MembershipId" />
+                    <input type="hidden" name="groupId" value="@groupId" />
+                    <button class="btn btn-danger" type="submit">Usuń z grupy</button>
+                </form>
+            </li>
+        }
+    </ul>
+</div>
+
+@section Scripts {
+    <script>
+        tcWireSearch("searchMembers", "#listMembers", ".list-item", "span");
+    </script>
+}

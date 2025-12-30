@@ -1,0 +1,44 @@
+@model TextCommunicator.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Logowanie";
+}
+
+<div class="card">
+    <h2>Logowanie</h2>
+
+    <form method="post">
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" type="password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <label class="checkbox">
+                <input asp-for="RememberMe" />
+                Zapamiętaj mnie
+            </label>
+        </div>
+
+        <div class="row gap">
+            <button type="submit" class="btn">Zaloguj</button>
+            <a class="btn btn-secondary" asp-action="Register">Rejestracja</a>
+        </div>
+
+        <div class="text-danger">
+            @Html.ValidationSummary()
+        </div>
+    </form>
+
+    <p class="muted small">Domyślne konto admina: <b>admin@tc.local</b> / hasło: <b>admin123</b></p>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
