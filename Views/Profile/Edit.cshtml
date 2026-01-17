@@ -1,4 +1,4 @@
-@model TextCommunicator.Models.ProfileEditViewModel
+@model TextCommunicator.Models.ProfileEditModel
 @{
     ViewData["Title"] = "Profil";
     var isAdminEditingOther = User.IsInRole("Admin") && Model.UserId != (User?.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? "");

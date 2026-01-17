@@ -21,11 +21,11 @@ public class AccountController : Controller
     public IActionResult Login(string? returnUrl = null)
     {
         ViewBag.ReturnUrl = returnUrl;
-        return View(new LoginViewModel());
+        return View(new LoginModel());
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login(LoginViewModel vm, string? returnUrl = null)
+    public async Task<IActionResult> Login(LoginModel vm, string? returnUrl = null)
     {
         ViewBag.ReturnUrl = returnUrl;
 
@@ -51,11 +51,11 @@ public class AccountController : Controller
     [HttpGet]
     public IActionResult Register()
     {
-        return View(new RegisterViewModel());
+        return View(new RegisterModel());
     }
 
     [HttpPost]
-    public async Task<IActionResult> Register(RegisterViewModel vm)
+    public async Task<IActionResult> Register(RegisterModel vm)
     {
         if (!ModelState.IsValid) return View(vm);
 

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TextCommunicator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b4ffb6cacc2dfb91d14382b976bb50fbcff448d0")]
 [assembly: System.Reflection.AssemblyProductAttribute("TextCommunicator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TextCommunicator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

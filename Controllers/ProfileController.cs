@@ -32,7 +32,7 @@ public class ProfileController : Controller
         var u = await _userManager.FindByIdAsync(targetId);
         if (u is null) return NotFound();
 
-        var vm = new ProfileEditViewModel
+        var vm = new ProfileEditModel
         {
             UserId = u.Id,
             Email = u.Email,
@@ -47,7 +47,7 @@ public class ProfileController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(ProfileEditViewModel vm)
+    public async Task<IActionResult> Edit(ProfileEditModel vm)
     {
         var meId = _userManager.GetUserId(User)!;
         if (vm.UserId != meId && !User.IsInRole("Admin"))
