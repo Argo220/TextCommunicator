@@ -1,0 +1,52 @@
+@model List<TextCommunicator.Data.Group>
+@{
+    ViewData["Title"] = "Grupy";
+}
+
+<div class="card">
+    <div class="row space-between">
+        <h2>Twoje grupy</h2>
+
+    <div class="form-group">
+        <input id="searchGroups" class="form-control" placeholder="Szukaj..." autocomplete="off" />
+    </div>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <a class="btn" asp-action="Create">+ Utwórz grupę</a>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <p class="muted">Nie jesteś w żadnej grupie.</p>
+    }
+    else
+    {
+        <ul class="list" id="listGroups">
+            @foreach (var g in Model)
+            {
+                <li class="list-item">
+                    <span>@g.Name</span>
+                    <div class="row gap">
+    <a class="btn btn-secondary" asp-action="Chat" asp-route-id="@g.Id">Otwórz</a>
+    @if (User.IsInRole("Admin"))
+    {
+        <form asp-action="Delete" method="post" class="inline">
+            <input type="hidden" name="id" value="@g.Id" />
+            <button class="btn btn-danger" type="submit">Usuń grupę</button>
+        </form>
+    }
+</div>
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+
+@section Scripts {
+    <script>
+        tcWireSearch("searchGroups", "#listGroups", ".list-item", "span");
+    </script>
+}

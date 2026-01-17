@@ -1,0 +1,45 @@
+@model List<TextCommunicator.Controllers.GroupsController.GroupListVm>
+@{
+    ViewData["Title"] = "Wszystkie grupy";
+}
+
+<div class="card">
+    <div class="row space-between">
+        <h2>Wszystkie grupy (Admin)</h2>
+        <a class="btn btn-secondary" asp-controller="Groups" asp-action="Create">+ Utwórz grupę</a>
+    </div>
+
+    <div class="form-group">
+        <input id="searchAllGroups" class="form-control" placeholder="Szukaj..." autocomplete="off" />
+    </div>
+
+    @if (!Model.Any())
+    {
+        <p class="muted">Brak grup.</p>
+    }
+    else
+    {
+        <ul class="list" id="listAllGroups">
+            @foreach (var g in Model)
+            {
+                <li class="list-item">
+                    <span>@g.Name</span>
+                    <div class="row gap">
+                        <a class="btn btn-secondary" asp-controller="Groups" asp-action="Chat" asp-route-id="@g.GroupId">Czat</a>
+                        <a class="btn btn-secondary" asp-controller="Groups" asp-action="Members" asp-route-id="@g.GroupId">Członkowie</a>
+                        <form asp-controller="Groups" asp-action="Delete" method="post" class="inline">
+                            <input type="hidden" name="id" value="@g.GroupId" />
+                            <button class="btn btn-danger" type="submit">Usuń</button>
+                        </form>
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        tcWireSearch("searchAllGroups", "#listAllGroups", ".list-item", "span");
+    </script>
+}
